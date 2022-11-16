@@ -10,8 +10,8 @@ df = pd.DataFrame()
 
 
 for i, ppt in enumerate(file_list_cleaned):
-    ppt_app = win32com.client.GetObject(ppt)
-    df.loc['00_File'] = ppt
+    ppt_app = win32com.client.GetObject(path.decode('utf8') +"\\" + ppt)
+    df.loc[i,'00_File'] = ppt
     print("----Ppt name----",ppt)
     for j, ppt_slide in enumerate(ppt_app.Slides):
         df.loc[i,'00_Slide'] = j
@@ -27,5 +27,8 @@ for i, ppt in enumerate(file_list_cleaned):
 df = df.reindex(sorted(df.columns), axis=1)
 df.to_excel(excel_writer = 'comments.xlsx')
 print(df)
+
+
+
 
 
